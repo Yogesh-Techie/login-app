@@ -1,0 +1,5 @@
+apiVersion: v2
+name: login-backend
+description: Helm chart for the login backend (Node.js + Express)
+version: 0.1.0
+appVersion: "1.0"
