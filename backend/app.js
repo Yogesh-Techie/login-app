@@ -1,52 +1,73 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var passport = require('passport');
+require('dotenv').config(); // Load .env variables
+
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const passport = require('passport');
 const mongoose = require('mongoose');
-var usersRouter = require('./routes/users');
-var authRouter = require('./routes/auth');
-var likesRouter = require('./routes/likes');
 
-var app = express();
+const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
+const likesRouter = require('./routes/likes');
 
+const app = express();
+
+// ✅ Environment variables
 const port = process.env.PORT || 3000;
-const dbPort = process.env.DB_PORT || 27017;
-const dbUrl = process.env.MONGO_NAME || "localhost";
-const dbCollection = process.env.DB_COLLECTION || "dev";
+const mongoUri = process.env.MONGO_URI;
 
-mongoose.connect(`mongodb://${dbUrl}/${dbCollection}`, {useNewUrlParser: true})
-    .then(_ => console.log('MongoDB connection success'))
-.catch(err => console.error(err));
-mongoose.set('useCreateIndex', true);
+if (!mongoUri) {
+  console.error('❌ MONGO_URI not defined in .env');
+  process.exit(1);
+}
 
+// ✅ Mongoose connection using Atlas URI
+mongoose.connect(mongoUri)
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch(err => {
+    console.error('❌ MongoDB connection error:', err);
+    process.exit(1);
+  });
+
+// 🔐 Passport config
 app.use(passport.initialize());
 require('./passport-config')(passport);
 
+// 📦 Middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-var env = process.env.NODE_ENV || 'dev';
-if (env == 'production') {
-  app.use("/", express.static(path.join(path.dirname(__dirname), '/frontend/build')))
+// 🧱 Serve frontend in production
+const env = process.env.NODE_ENV || 'dev';
+if (env === 'production') {
+  app.use("/", express.static(path.join(path.dirname(__dirname), '/frontend/build')));
 }
-app.use('/api/', usersRouter);
-app.use('/api/', authRouter);
-app.use('/api/', likesRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+// ✅ API Health check
+app.get('/api', (req, res) => {
+  res.status(200).json({ status: 'API is running 🚀' });
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  res.status(err.status || 500);
-  return res.status(404).json(err);
+// 🛣 Routes
+app.use('/api', usersRouter);
+app.use('/api', authRouter);
+app.use('/api', likesRouter);
+
+// ❌ 404 handler
+app.use(function (req, res, next) {
+  next(createError(404, 'Not Found'));
+});
+
+// 🛠 Global error handler
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500).json({
+    error: {
+      message: err.message || 'Internal Server Error',
+      status: err.status || 500
+    }
+  });
 });
 
 module.exports = app;
