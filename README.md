@@ -1,73 +1,30 @@
-# jwt-express-react-example
+# mern-react-nodejs-mongodb-docker-aws
 
-A two part example application with a frontend and backend.
+A full stack social media web application using React as frontend framework, node.js and Express as backend framework and MongoDB Atlas as Database. Dockerized server and client sides.
 
-Try it out at: http://jwt-express-react-example.trina.si/
+## Run project
+```
+docker-compose up
+```
 
+## Sign up & Sign in pages
 
-## Functionality
+<img width="1411" alt="Screen Shot 2023-01-17 at 5 36 06 PM" src="https://user-images.githubusercontent.com/45492838/213035743-7663ce2f-c167-417e-a89e-ab3156de63bd.png">
 
-- Sign up
-- Log in
-- [Logged in] Log out
-- [Logged in] Change password
-- List of all users in the application (sorted by most-liked first)
-- Show all users that are currently in the system
-- Show number of likes
-- [logged in] Like/unlike a user
-- jwt token authentication with passport
-- At least one test for all endpoints
+<img width="1416" alt="Screen Shot 2023-01-17 at 5 35 29 PM" src="https://user-images.githubusercontent.com/45492838/213035782-94066502-9da3-412f-9730-572186c4f750.png">
 
-## Tools used
+## Home page without logging in
 
-- [Node.js](https://nodejs.org/en/) v8 (async/await functionality)
-- [mongodb](https://www.mongodb.com/), [mongoose](https://mongoosejs.com/)
-- [Express.js](https://expressjs.com/)
-- [Passport.js](http://www.passportjs.org/) for authentication
-- [ReactJS](https://reactjs.org/)
-- [Redux](https://redux.js.org/) for state management
-- [Mocha](https://mochajs.org/) for testing
+<img width="1417" alt="Screen Shot 2023-01-17 at 5 27 38 PM" src="https://user-images.githubusercontent.com/45492838/213035868-01dbd60c-174a-42a7-beab-8fb33e9ac224.png">
 
-## REST endpoints
-Features the following REST endpoints:
+## Home page after logging in
 
-- /signup
+<img width="1414" alt="Screen Shot 2023-01-17 at 5 28 44 PM" src="https://user-images.githubusercontent.com/45492838/213035940-d2bc80b5-4804-4b8a-932e-1ca05addaa49.png">
 
-    Sign up to the system (username, password)
-    
-- /login
+## Post detail page with comment area and related posts recommendation
 
-    Logs in an existing user with a password
-    
-- **/me**
+<img width="1412" alt="Screen Shot 2023-01-17 at 5 29 04 PM" src="https://user-images.githubusercontent.com/45492838/213036056-ecc1eb86-9b28-40d0-a85a-f6fda4566e27.png">
 
-    Get the currently logged in user information
-    
-- **/me/update-password**
+<img width="1402" alt="Screen Shot 2023-01-17 at 5 29 22 PM" src="https://user-images.githubusercontent.com/45492838/213036076-7405531d-2983-42fc-87a5-f61c1f62aefd.png">
 
-    Update the current user's password
-    
-- /user/:username/
-
-    List username & number of likes of a user
-
-- **/user/:username/like**
-
-    Like a user
-
-- **/user/:username/unlike**
-
-    Unlike a user
-
-- /most-liked
-
-    List users in a most liked to least liked
-
-Each user can like another only once, and they can unlike each other.
-The bolded endpoints are authenticated calls.
-
-## Usage
-
-### Development
-- Run `npm start` in `frontend/`, server will run at `http://localhost:3000`
-- Run `npm start` in `backend/`, server will run at `http://localhost:8000`
+Followed the [video](https://www.youtube.com/watch?v=VsUzmlZfYNg&t=3057s), pretty good one, learned a lot!
