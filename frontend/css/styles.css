@@ -1,0 +1,64 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+}
+
+.container {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.btn {
+  padding: 12px 24px;
+  margin: 10px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.form-container {
+  width: 300px;
+  margin: 100px auto;
+  padding: 2em;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+button {
+  padding: 10px;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  border: none;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
+
+.welcome-bg {
+  background: url("https://source.unsplash.com/1600x900/?nature,forest") no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
